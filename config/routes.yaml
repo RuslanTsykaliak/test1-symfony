@@ -1,0 +1,7 @@
+controllers:
+    resource: '../src/Controller/'
+    type: annotation
+
+app_submit_post:
+    path: /submit-post
+    controller: 'App\Controller\SubmitPostController::submitPost'

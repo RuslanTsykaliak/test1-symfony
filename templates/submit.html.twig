@@ -1,0 +1,49 @@
+{% include 'header.html.twig' %}
+
+<div class="container">
+    <form method="POST" action="{{ path('submit_post') }}">
+        <div class="form-group">
+            <label for="post_title">{{ pageTitle }}</label>
+            <input type="text" class="form-control shorten-input" id="post_title" name="title" placeholder="Post Title" maxlength="25">
+        </div>
+        <div class="form-group">
+            <label for="post_content">Post Content</label>
+            <textarea class="form-control" id="post_content" name="content" placeholder="Post Content" maxlength="255" style="height: 90px;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<style>
+    .notification-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let notificationMessage = "{{ notificationMessage }}";
+        if (notificationMessage !== '') {
+            let notificationDiv = $('<div>').attr('id', 'notification-message').addClass('notification-message');
+            let notificationText = $('<h3>').text(notificationMessage);
+            notificationDiv.append(notificationText);
+            $('body').append(notificationDiv);
+            notificationDiv.fadeIn();
+            setTimeout(function() {
+                notificationDiv.fadeOut();
+            }, 10000);
+        }
+    });
+</script>
+
+{% include 'footer.html.twig' %}

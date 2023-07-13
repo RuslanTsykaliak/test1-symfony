@@ -1,0 +1,58 @@
+{% include 'header.html.twig' %}
+
+<div class="container">
+    {% for post in posts %}
+        <div class="post" data-post-id="{{ post.id }}">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p>Created on: {{ post.date_of_creation|date('Y-m-d H:i:s') }}</p>
+
+            {% if post.creator_id == creatorId %}
+                <button><a href="{{ path('post_delete', { 'id': post.id }) }}" class="delete-button" data-post-id="{{ post.id }}" data-creator-id="{{ post.creator_id }}">Delete</a></button>
+            {% endif %}
+        </div>
+        <hr>
+    {% else %}
+        <p>No posts found</p>
+    {% endfor %}
+</div>
+
+<div id="delete-success-message" class="delete-success-message">
+    <h3>The post was successfully deleted.</h3>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{# <script src="{{ asset('js/delete.js') }}"></script> #}
+<script>
+    $(document).ready(function() {
+        $('.delete-button').click(function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            const postId = $(this).data('post-id');
+            const creatorId = $(this).data('creator-id');
+            
+            const deleteUrl = '{{ path('post_delete', { 'id': '__post_id__' }) }}';
+            const url = deleteUrl.replace('__post_id__', postId);
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: { creatorId: creatorId },
+                success: function() {
+                    $('#delete-success-message').fadeIn();
+                    setTimeout(function() {
+                        $('#delete-success-message').fadeOut();
+                    }, 2000);
+                    $('.post[data-post-id="' + postId + '"]').remove();
+                },
+                error: function() {
+                    alert('Error occurred while deleting the post');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+{% include 'footer.html.twig' %}

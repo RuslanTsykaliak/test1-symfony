@@ -1,0 +1,2 @@
+-- DROP DATABASE IF EXISTS test8_db;
+-- CREATE DATABASE test8_db;
