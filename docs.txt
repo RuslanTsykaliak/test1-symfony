@@ -1,0 +1,15 @@
+psql -h localhost -p 5432 -U ruslan -d test8_db
+
+CREATE TABLE authors (
+  id serial PRIMARY KEY,
+  creator_id varchar(255) NOT NULL,
+  last_creation timestamp DEFAULT current_timestamp
+);
+
+CREATE TABLE posts (
+  id serial PRIMARY KEY,
+  title varchar(255),
+  content text,
+  date_of_creation timestamp DEFAULT current_timestamp,
+  creator_id varchar(255)
+);
