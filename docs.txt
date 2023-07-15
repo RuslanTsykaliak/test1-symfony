@@ -1,4 +1,8 @@
-psql -h localhost -p 5432 -U ruslan -d test8_db
+composer require symfony/ux-turbo
+yarn install --force
+
+PostgreSQL
+/ # psql -h localhost -p 5432 -U ruslan -d test8_db
 
 CREATE TABLE authors (
   id serial PRIMARY KEY,
@@ -13,3 +17,33 @@ CREATE TABLE posts (
   date_of_creation timestamp DEFAULT current_timestamp,
   creator_id varchar(255)
 );
+
+
+Upload to cPanel
+
+Terminal
+composer install
+
+php bin/console symfony:apache-pack
+
+MySQL
+
+CREATE TABLE authors (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  creator_id VARCHAR(255) NOT NULL,
+  last_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  content TEXT,
+  date_of_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  creator_id VARCHAR(255)
+);
+
+
+
+DATABASE_URL="mysql://YourDBUserName:yourpassword@127.0.0.1:3306/yourDBName?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
+
+Add .htaccess
